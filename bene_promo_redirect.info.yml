@@ -3,6 +3,5 @@ description: 'Temporarily redirect one or more pages to a specific page or site 
 type: module
 core: 8.x
 configure: bene_promo_redirect.configure
-dependencies:
-  - bene_core
+dependencies: { }
 package: Bene Features
