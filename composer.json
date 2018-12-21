@@ -1,0 +1,8 @@
+{
+    "name": "thinkshout/bene_promo_redirect",
+    "description": "Temporarily redirect one or more pages to a specific page or site until the user has visited the target.",
+    "type": "drupal-module",
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "require": {}
+}
