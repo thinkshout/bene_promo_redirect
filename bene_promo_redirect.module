@@ -11,6 +11,7 @@ use Drupal\Component\Utility\UrlHelper;
  * Implements hook_page_attachments().
  */
 function bene_promo_redirect_page_attachments(array &$page) {
+  $page['#cache']['tags'][] = 'config:bene_promo_redirect.settings';
   $config = \Drupal::config('bene_promo_redirect.settings');
   // Only redirect when enabled:
   if ($config->get('enabled')) {
@@ -44,7 +45,6 @@ function bene_promo_redirect_page_attachments(array &$page) {
               'destination' => $config->get('dest'),
               'destinationDomain' => $destination_parts['host'],
             ];
-            $page['#cache']['tags'][] = 'config:bene_promo_redirect.settings';
           }
         }
       }
