@@ -13,6 +13,7 @@ use Drupal\Component\Utility\UrlHelper;
 function bene_promo_redirect_page_attachments(array &$page) {
   $page['#cache']['tags'][] = 'config:bene_promo_redirect.settings';
   $config = \Drupal::config('bene_promo_redirect.settings');
+  $page['#cache']['tags'][] = 'config:bene_promo_redirect.settings';
   // Only redirect when enabled:
   if ($config->get('enabled')) {
     $destination = $config->get('dest');
