@@ -42,7 +42,7 @@ class PromoRedirectSettings extends ConfigFormBase {
       '#type' => 'textfield',
       '#default_value' => isset($settings['dest']) ? $settings['dest'] : '',
       '#description' => t('The URL to send visitors to. Start with "http" if external.'),
-      '#maxlength' => 512,
+      '#maxlength' => 2083,
       // @todo validation
     ];
 
