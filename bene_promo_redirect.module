@@ -12,32 +12,32 @@ use Drupal\Component\Utility\UrlHelper;
  */
 function bene_promo_redirect_page_attachments(array &$page) {
   $config = \Drupal::config('bene_promo_redirect.settings');
-  // Only redirect when enabled:
   $page['#cache']['tags'][] = 'config:bene_promo_redirect.settings';
-  $destination = $config->get('dest');
-  if (!empty($destination) && UrlHelper::isValid($destination)) {
-    $route = \Drupal::routeMatch()->getRouteObject();
-    // Don't redirect admin pages:
-    if (!\Drupal::service('router.admin_context')->isAdminRoute($route)) {
-      $request = \Drupal::request();
-      $current_uri = $request->getRequestUri();
-      // Don't redirect User pages:
-      if (strpos($current_uri, "/user") !== 0) {
-        // Now let's match against our path specifications:
-        if ($config->get('redirect_all')) {
-          $pathmatch = TRUE;
-        }
-        else {
-          $pathmatch = FALSE;
-          foreach ($config->get('paths') as $path) {
-            if (in_array($current_uri, [$path, "/$path"])) {
-              $pathmatch = TRUE;
-              continue;
+  // Only redirect when enabled:
+  if ($config->get('enabled')) {
+    $destination = $config->get('dest');
+    if (!empty($destination) && UrlHelper::isValid($destination)) {
+      $route = \Drupal::routeMatch()->getRouteObject();
+      // Don't redirect admin pages:
+      if (!\Drupal::service('router.admin_context')->isAdminRoute($route)) {
+        $request = \Drupal::request();
+        $current_uri = $request->getRequestUri();
+        // Don't redirect User pages:
+        if (strpos($current_uri, "/user") !== 0) {
+          // Now let's match against our path specifications:
+          if ($config->get('redirect_all')) {
+            $pathmatch = TRUE;
+          }
+          else {
+            $pathmatch = FALSE;
+            foreach ($config->get('paths') as $path) {
+              if (in_array($current_uri, [$path, "/$path"])) {
+                $pathmatch = TRUE;
+                continue;
+              }
             }
           }
-        }
-        if ($pathmatch) {
-          if ($config->get('enabled')) {
+          if ($pathmatch) {
             $page['#attached']['library'][] = 'bene_promo_redirect/bene-promo-redirect';
             // Include domains to match against for use in JS:
             $destination_parts = parse_url($config->get('dest'));
